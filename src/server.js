@@ -9,4 +9,9 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
+app.use('/login');
+app.use('/user');
+app.use('/categories');
+app.use('/post');
+
 app.listen(port, () => console.log('ouvindo porta', port));
