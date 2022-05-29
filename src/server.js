@@ -1,5 +1,6 @@
 require('dotenv').config();
 const app = require('./api');
+const errorMiddleware = require('./middleware/errorMiddleware');
 const loginRoute = require('./routes/login');
 const useRoute = require('./routes/login');
 const categoriesRoute = require('./routes/login');
@@ -17,5 +18,7 @@ app.use('/login', loginRoute);
 app.use('/user', useRoute);
 app.use('/categories', categoriesRoute);
 app.use('/post', postRoute);
+
+app.use(errorMiddleware);
 
 app.listen(port, () => console.log('ouvindo porta', port));
