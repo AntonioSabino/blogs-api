@@ -6,11 +6,19 @@ const createUser = async (req, res) => {
 
   const user = await User.create({ displayName, email, password, image });
 
-  const { password: passDB, ...userWithoutPass } = user;
+  const userData = user.dataValues;
+
+  const { password: passDB, ...userWithoutPass } = userData;
 
   const token = generateJWT(userWithoutPass);
 
   return res.status(201).json({ token });
 };
 
-module.exports = { createUser };
+const getAllUsers = async (_req, res) => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return res.status(200).json(users);
+};
+
+module.exports = { createUser, getAllUsers };
