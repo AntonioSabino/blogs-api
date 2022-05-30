@@ -1,17 +1,18 @@
 const express = require('express');
+const authToken = require('../middleware/authToken');
 
 const router = express.Router();
 
-router.post('/');
+router.post('/', authToken);
 
-router.get('/');
+router.get('/', authToken);
 
-router.get('/:id');
+router.get('/:id', authToken);
 
-router.put('/:id');
+router.put('/:id', authToken);
 
-router.delete('/:id');
+router.delete('/:id', authToken);
 
-router.get('/search?q=:searchTerm');
+router.get('/search?q=:searchTerm', authToken);
 
 module.exports = router;
