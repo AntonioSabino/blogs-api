@@ -45,4 +45,16 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.user.data;
+
+    await User.destroy({ where: { id } });
+
+    return res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createUser, getAllUsers, getUserById, deleteUser };
