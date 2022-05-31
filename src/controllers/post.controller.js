@@ -22,10 +22,10 @@ const getAllPosts = async (_req, res, next) => {
   try {
     const posts = await BlogPost.findAll({
       include: [
-          { model: User, as: 'user', attributes: { exclude: ['password'] } },
-          { model: Category, as: 'categories', through: { attributes: [] } },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
       ],
-  });
+    });
 
     return res.status(200).json(posts);
   } catch (error) {
@@ -33,21 +33,24 @@ const getAllPosts = async (_req, res, next) => {
   }
 };
 
-// const getUserById = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
+const getPostById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-//     const user = await User.findByPk(id, {
-//       attributes: { exclude: ['password'] },
-//     });
+    const post = await BlogPost.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
 
-//     if (!user) return res.status(404).json({ message: 'User does not exist' });
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
 
-//     return res.status(200).json(user);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    return res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // const deleteUser = async (req, res, next) => {
 //   try {
@@ -61,4 +64,4 @@ const getAllPosts = async (_req, res, next) => {
 //   }
 // };
 
-module.exports = { getAllPosts };
+module.exports = { getAllPosts, getPostById };
