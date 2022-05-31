@@ -1,10 +1,15 @@
 const express = require('express');
-const { getAllPosts, getPostById } = require('../controllers/post.controller');
+const {
+  getAllPosts,
+  getPostById,
+  createPost,
+} = require('../controllers/post.controller');
 const authToken = require('../middleware/authToken');
+const validatePost = require('../middleware/validatePost');
 
 const router = express.Router();
 
-router.post('/', authToken);
+router.post('/', authToken, validatePost, createPost);
 
 router.get('/', authToken, getAllPosts);
 

@@ -1,22 +1,26 @@
+const Sequelize = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
+const config = require('../database/config/config');
 
-// const createUser = async (req, res, next) => {
-//   try {
-//     const { displayName, email, password, image } = req.body;
+const sequelize = new Sequelize(config.development);
 
-//     const user = await User.create({ displayName, email, password, image });
+const createPost = async (req, res, next) => {
+  try {
+    const { title, content, categoryIds } = req.body;
+    const userId = req.user.data.id;
 
-//     const userData = user.dataValues;
+    const newPost = await sequelize.transaction(async (t) => {
+      const post = await BlogPost.create({ title, content, userId }, { t });
 
-//     const { password: passDB, ...userWithoutPass } = userData;
+      await post.addCategory(categoryIds, { t });
+      return post;
+    });
 
-//     const token = generateJWT(userWithoutPass);
-
-//     return res.status(201).json({ token });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    return res.status(201).json(newPost);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getAllPosts = async (_req, res, next) => {
   try {
@@ -64,4 +68,4 @@ const getPostById = async (req, res, next) => {
 //   }
 // };
 
-module.exports = { getAllPosts, getPostById };
+module.exports = { createPost, getAllPosts, getPostById };
