@@ -3,19 +3,23 @@ const {
   getAllPosts,
   getPostById,
   createPost,
+  updatePost,
 } = require('../controllers/post.controller');
 const authToken = require('../middleware/authToken');
-const validatePost = require('../middleware/validatePost');
+const {
+  validateTitleAndContent,
+  validateCategories,
+} = require('../middleware/validatePost');
 
 const router = express.Router();
 
-router.post('/', authToken, validatePost, createPost);
+router.post('/', authToken, validateTitleAndContent, validateCategories, createPost);
 
 router.get('/', authToken, getAllPosts);
 
 router.get('/:id', authToken, getPostById);
 
-router.put('/:id', authToken);
+router.put('/:id', authToken, validateTitleAndContent, updatePost);
 
 router.delete('/:id', authToken);
 
