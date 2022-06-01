@@ -67,7 +67,9 @@ const updatePost = async (req, res, next) => {
       { where: { id, userId } },
     );
 
-    if (!updatedPost) { return res.status(401).json({ message: 'Unauthorized user' }); }
+    if (!updatedPost) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
 
     const post = await getPostById(req, res, next);
 
@@ -84,7 +86,9 @@ const deletePost = async (req, res, next) => {
 
     const hasPost = await BlogPost.findByPk(id);
 
-    if (!hasPost) { return res.status(404).json({ message: 'Post does not exist' }); }
+    if (!hasPost) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
 
     const destroy = await BlogPost.destroy({ where: { id, userId } });
 
@@ -96,10 +100,38 @@ const deletePost = async (req, res, next) => {
   }
 };
 
+const searchTerm = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+
+    const foundPost = await BlogPost.findAll({
+      where: {
+        /**
+           * Código com Sequelize.Op.or consultado na aula do curso
+           * https://alunos.b7web.com.br/curso/node/tipos-de-consulta-1
+        */
+        [Sequelize.Op.or]: {
+          title: { [Sequelize.Op.substring]: q },
+          content: { [Sequelize.Op.substring]: q },
+        },
+      },
+      include: [
+        { as: 'user', model: User, attributes: { exclude: ['password'] } },
+        { as: 'categories', model: Category, through: { attributes: [] } },
+      ],
+    });
+
+    return res.status(200).json(foundPost);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  searchTerm,
 };
