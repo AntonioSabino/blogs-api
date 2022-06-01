@@ -10,12 +10,12 @@ const {
 const authToken = require('../middleware/authToken');
 const {
   validateTitleAndContent,
-  validateCategories,
+  // validateCategories,
 } = require('../middleware/validatePost');
 
 const router = express.Router();
 
-router.post('/', authToken, validateTitleAndContent, validateCategories, createPost);
+router.post('/', authToken, validateTitleAndContent, createPost);
 
 router.get('/', authToken, getAllPosts);
 
