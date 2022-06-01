@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const { User } = require('../database/models');
 
 const schema = Joi.object({
   displayName: Joi.string().min(8).required(),
@@ -13,12 +12,6 @@ const validateNewUser = async (req, _res, next) => {
 
   if (error) {
     next({ status: 400, message: error.message });
-  }
-
-  const user = await User.findOne({ where: { email } });
-
-  if (user) {
-    next({ status: 409, message: 'User already registered' });
   }
 
   next();

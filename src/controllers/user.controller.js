@@ -1,17 +1,16 @@
-const { User } = require('../database/models');
-const generateJWT = require('../util/generateJWT');
+const User = require('../services/user.service');
 
 const createUser = async (req, res, next) => {
   try {
-    const { displayName, email, password, image } = req.body;
+    const { email } = req.body;
 
-    const user = await User.create({ displayName, email, password, image });
+    const registeredEmail = await User.getUserByEmail(email);
 
-    const userData = user.dataValues;
+    if (registeredEmail) {
+      next({ status: 409, message: 'User already registered' });
+    }
 
-    const { password: passDB, ...userWithoutPass } = userData;
-
-    const token = generateJWT(userWithoutPass);
+    const token = await User.createUser(req.body);
 
     return res.status(201).json({ token });
   } catch (error) {
@@ -21,7 +20,7 @@ const createUser = async (req, res, next) => {
 
 const getAllUsers = async (_req, res, next) => {
   try {
-    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    const users = await User.getAllUsers();
 
     return res.status(200).json(users);
   } catch (error) {
@@ -33,9 +32,7 @@ const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const user = await User.findByPk(id, {
-      attributes: { exclude: ['password'] },
-    });
+    const user = await User.getUserById(id);
 
     if (!user) return res.status(404).json({ message: 'User does not exist' });
 
@@ -49,7 +46,7 @@ const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.user.data;
 
-    await User.destroy({ where: { id } });
+    await User.deleteUser(id);
 
     return res.status(204).json();
   } catch (error) {
