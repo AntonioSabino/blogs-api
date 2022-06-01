@@ -4,6 +4,7 @@ const {
   getPostById,
   createPost,
   updatePost,
+  deletePost,
 } = require('../controllers/post.controller');
 const authToken = require('../middleware/authToken');
 const {
@@ -21,7 +22,7 @@ router.get('/:id', authToken, getPostById);
 
 router.put('/:id', authToken, validateTitleAndContent, updatePost);
 
-router.delete('/:id', authToken);
+router.delete('/:id', authToken, deletePost);
 
 router.get('/search?q=:searchTerm', authToken);
 

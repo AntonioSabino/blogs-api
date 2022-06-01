@@ -67,7 +67,7 @@ const updatePost = async (req, res, next) => {
       { where: { id, userId } },
     );
 
-    if (!updatedPost) return res.status(401).json({ message: 'Unauthorized user' });
+    if (!updatedPost) { return res.status(401).json({ message: 'Unauthorized user' }); }
 
     const post = await getPostById(req, res, next);
 
@@ -77,16 +77,29 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-// const deleteUser = async (req, res, next) => {
-//   try {
-//     const { id } = req.user.data;
+const deletePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.data.id;
 
-//     await User.destroy({ where: { id } });
+    const hasPost = await BlogPost.findByPk(id);
 
-//     return res.status(204).json();
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    if (!hasPost) { return res.status(404).json({ message: 'Post does not exist' }); }
 
-module.exports = { createPost, getAllPosts, getPostById, updatePost };
+    const destroy = await BlogPost.destroy({ where: { id, userId } });
+
+    if (!destroy) return res.status(401).json({ message: 'Unauthorized user' });
+
+    return res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createPost,
+  getAllPosts,
+  getPostById,
+  updatePost,
+  deletePost,
+};
