@@ -6,23 +6,29 @@ const schema = Joi.object({
   content: Joi.string().min(1).required(),
 });
 
-const validatePost = async (req, _res, next) => {
-  const { title, content, categoryIds } = req.body;
+const validateTitleAndContent = (req, _res, next) => {
+  const { title, content } = req.body;
   const { error } = schema.validate({ title, content });
 
   if (error) {
     next({ status: 400, message: 'Some required fields are missing' });
   }
 
-  const validateCategories = await Category.findAll({
+  next();
+};
+
+const validateCategories = async (req, _res, next) => {
+  const { categoryIds } = req.body;
+
+  const isValidCategories = await Category.findAll({
     where: { id: categoryIds },
   });
 
-  if (!validateCategories.length) {
+  if (!isValidCategories.length) {
     next({ status: 400, message: '"categoryIds" not found' });
   }
 
   next();
 };
 
-module.exports = validatePost;
+module.exports = { validateTitleAndContent, validateCategories };
