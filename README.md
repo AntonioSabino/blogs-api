@@ -23,7 +23,7 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
 # Orientações
 
 <details>
-  <summary><strong>Rodando Localmente</strong></summary>
+  <summary><strong>Inicializando o projeto</strong></summary>
 
   > :information_source: Instale as dependências com `npm install`
 
