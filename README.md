@@ -33,7 +33,7 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
   > :information_source: Através do Sequelize crie o banco e gere as tabelas `npm run prestart` e popule as tabelas com `npm run seed`. 
 
     ---
-  
+
     #### Scripts prontos
 
     - Deleta o banco de dados:
