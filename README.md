@@ -1,6 +1,6 @@
 # Projeto API de Blogs!
 
-Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24: Node.js: ORM e Autenticação conteúdos vistos anteriormente na formação da [Trybe](https://www.betrybe.com/). 
+Projeto feito para verificar meus aprendizados sobre o conteúdo do Bloco 24: Node.js: ORM e Autenticação conteúdos vistos anteriormente na formação da [Trybe](https://www.betrybe.com/). 
 
 <br />
 
