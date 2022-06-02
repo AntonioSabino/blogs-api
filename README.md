@@ -1,6 +1,6 @@
-# Boas-vindas ao repositório do projeto API de Blogs!
+# Projeto API de Blogs!
 
-Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24: Node.js: ORM e Autenticação conteúdos vistos anteriormente. 
+Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24: Node.js: ORM e Autenticação conteúdos vistos anteriormente na formação da [Trybe](https://www.betrybe.com/). 
 
 <br />
 
