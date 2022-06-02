@@ -32,25 +32,40 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
   
   > :information_source: Através do Sequelize crie o banco e gere as tabelas `npm run prestart` e popule as tabelas com `npm run seed`. 
 
-    ---
-
     #### Scripts prontos
 
     - Deleta o banco de dados:
-    ```json
     "drop": "npx sequelize-cli db:drop"
-    ```
 
     - Cria o banco e gera as tabelas:
-    ```json
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate"
-    ```
 
     - Insere dados/Popula a tabela:
-    ```json
     "seed": "npx sequelize-cli db:seed:all"
-    ```
+  
+  ---
 
+  **Você irá precisar configurar as variáveis de ambiente para uso do MySQL.** Você pode usar esse [Conteúdo de variáveis de ambiente com NodeJS](https://blog.rocketseat.com.br/variaveis-ambiente-nodejs/) como referência.
+
+  O arquivo a seguir, contém um modelo das variáveis de ambiente utilizadas no projeto. Para o contexto de teste local, é importante configurar as variáveis: `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`:
+
+  > 👉 `.env.example`
+  ```env
+  #### SERVER VARS
+  NODE_ENV=development
+  API_PORT=3000
+
+  #### DATABASE VARS
+  MYSQL_HOST=localhost
+  MYSQL_PORT=3306
+  MYSQL_DB_NAME=blogs-api
+  MYSQL_USER=root
+  MYSQL_PASSWORD=password
+
+  #### SECRECT VARS
+  JWT_SECRET=suaSenhaSecreta
+  ```
+  
   <br/>
 </details>
 
