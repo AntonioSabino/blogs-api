@@ -4,8 +4,6 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
 
 <br />
 
-# Entregáveis
-
 <details>
   <summary><strong>👨‍💻 O que foi desenvolvido</strong></summary>
 
@@ -27,10 +25,31 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
 <details>
   <summary><strong>Rodando Localmente</strong></summary>
 
-  > :information_source: Instale as dependências [**Caso existam**] com `npm install`
+  > :information_source: Instale as dependências com `npm install`
 
   - **✨ Dica:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
   - **✨ Dica:** O avaliador espera que a versão do `node` utilizada seja a 16.
+  
+  > :information_source: Através do Sequelize crie o banco e gere as tabelas `npm run prestart` e popule as tabelas com `npm run seed`. 
+
+    ---
+  
+    #### Scripts prontos
+
+    - Deleta o banco de dados:
+    ```json
+    "drop": "npx sequelize-cli db:drop"
+    ```
+
+    - Cria o banco e gera as tabelas:
+    ```json
+    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate"
+    ```
+
+    - Insere dados/Popula a tabela:
+    ```json
+    "seed": "npx sequelize-cli db:seed:all"
+    ```
 
   <br/>
 </details>
@@ -108,23 +127,6 @@ Esse projeto foi para verificar meus aprendizados sobre o conteúdo do Bloco 24:
     *Os dados acima são fictícios, e estão aqui apenas como exemplo* 
 
     ---
-
-    #### Scripts prontos
-
-    - Deleta o banco de dados:
-    ```json
-    "drop": "npx sequelize-cli db:drop"
-    ```
-
-    - Cria o banco e gera as tabelas:
-    ```json
-    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate"
-    ```
-
-    - Insere dados/Popula a tabela:
-    ```json
-    "seed": "npx sequelize-cli db:seed:all"
-    ```
 
 <br />
 </details>
